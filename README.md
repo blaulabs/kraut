@@ -44,15 +44,6 @@ This returns a `Kraut::Principal` instance with various attributes:
     #password  # => "password"
     #token     # => "3p7Xs3dIuTVb2pO4II1h8A"
 
-Kraut::Role
------------
-
-Roles can be assigned to principals in order for them to have a specific position inside an application.
-`Kraut::Role` contains methods for working with roles.
-
-    .all_names            # Returns an Array containing all role names
-    .member?(name, role)  # Returns whether a principal with a given name belongs to a group
-
 Work in progress
 ----------------
 
