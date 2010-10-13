@@ -6,9 +6,7 @@ Interface for the [Atlassian Crowd](http://www.atlassian.com/software/crowd/) SO
 Installation
 ------------
 
-Kraut is available through [Rubygems](http://rubygems.org/gems/kraut) and can be installed via:
-
-    $ gem install kraut
+Kraut will soon be available via Rubygems.
 
 Crowd endpoint
 --------------
