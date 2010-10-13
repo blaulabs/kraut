@@ -1,0 +1,10 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <ns1:authenticateApplicationResponse xmlns:ns1="urn:SecurityServer">
+         <ns1:out>
+            <name xmlns="http://authentication.integration.crowd.atlassian.com">app</name>
+            <token xmlns="http://authentication.integration.crowd.atlassian.com">J8n5KCem7Djk30zel0rUdA00</token>
+         </ns1:out>
+      </ns1:authenticateApplicationResponse>
+   </soap:Body>
+</soap:Envelope>

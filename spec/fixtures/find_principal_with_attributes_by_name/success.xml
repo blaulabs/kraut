@@ -1,0 +1,69 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <ns1:findPrincipalWithAttributesByNameResponse xmlns:ns1="urn:SecurityServer">
+         <ns1:out>
+            <ID xmlns="http://soap.integration.crowd.atlassian.com">-1</ID>
+            <active xmlns="http://soap.integration.crowd.atlassian.com">true</active>
+            <attributes xmlns="http://soap.integration.crowd.atlassian.com">
+               <SOAPAttribute>
+                  <name>givenName</name>
+                  <values>
+                     <ns1:string>Test</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>sn</name>
+                  <values>
+                     <ns1:string>User</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>displayName</name>
+                  <values>
+                     <ns1:string>Test User</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>mail</name>
+                  <values>
+                     <ns1:string>fn@blau.de</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>requiresPasswordChange</name>
+                  <values>
+                     <ns1:string>false</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>invalidPasswordAttempts</name>
+                  <values>
+                     <ns1:string>0</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>lastAuthenticated</name>
+                  <values>
+                     <ns1:string>1286895918952</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>passwordLastChanged</name>
+                  <values>
+                     <ns1:string>1274258741546</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>inexsoUserId</name>
+                  <values>
+                     <ns1:string>107</ns1:string>
+                  </values>
+               </SOAPAttribute>
+            </attributes>
+            <description xsi:nil="true" xmlns="http://soap.integration.crowd.atlassian.com"/>
+            <directoryId xmlns="http://soap.integration.crowd.atlassian.com">32769</directoryId>
+            <name xmlns="http://soap.integration.crowd.atlassian.com">test</name>
+         </ns1:out>
+      </ns1:findPrincipalWithAttributesByNameResponse>
+   </soap:Body>
+</soap:Envelope>
