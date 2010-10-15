@@ -34,6 +34,7 @@ module Kraut
       # Adds application authentication credentials.
       def auth_request(method, body = {})
         body[:in0] = { "aut:name" => Application.name, "aut:token" => Application.token }
+        body[:order!] = [:in0, :in1]
         request method, body
       end
 
