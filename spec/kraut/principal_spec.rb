@@ -14,7 +14,7 @@ describe Kraut::Principal do
 
     before do
       savon_mock :authenticate_principal, :success
-      #savon_mock :find_principal_with_attributes_by_name, :success
+      savon_mock :find_principal_with_attributes_by_name, :success
     end
 
     it "should have a name" do
@@ -28,12 +28,23 @@ describe Kraut::Principal do
     it "should have a token" do
       principal.token.should == 'COvlhb092poBHXi4rh4PQg00'
     end
+
+    it "should have a display_name" do
+      principal.display_name.should == "Test User"
+    end
+
+    it "should have a requires_password_change?" do
+      principal.requires_password_change?.should be_false
+    end
+
+    it "should have an email" do
+      principal.email.should == "test@blau.de"
+    end
   end
 
   describe ".authenticate" do
     before do 
       savon_mock :authenticate_principal, :success
-      #savon_mock :find_principal_with_attributes_by_name, :success
     end 
 
     it "should return a principal" do
@@ -59,10 +70,4 @@ describe Kraut::Principal do
       end
     end
   end
-
-  describe ".new" do
-    it "should accept a Hash of attributes"
-    it "should find the principal's attributes"
-  end
-
 end

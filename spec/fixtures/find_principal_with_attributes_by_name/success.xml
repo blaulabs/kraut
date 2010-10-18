@@ -26,7 +26,7 @@
                <SOAPAttribute>
                   <name>mail</name>
                   <values>
-                     <ns1:string>fn@blau.de</ns1:string>
+                     <ns1:string>test@blau.de</ns1:string>
                   </values>
                </SOAPAttribute>
                <SOAPAttribute>

@@ -9,7 +9,7 @@ module SavonHelper
     
     # setup response
     response = HTTPI::Response.new 200, {}, Fixture[*args]
-    HTTPI.stubs(:post).returns(response)
+    HTTPI.stubs(:post).with { |http| http.body =~ /#{args.first.to_s.lower_camelcase}/ }.returns(response)
   end
 
 end
