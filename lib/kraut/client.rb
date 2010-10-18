@@ -6,12 +6,12 @@ Savon.raise_errors = false
 
 module Kraut
 
+  autoload :Application, "kraut/application"
+
   # = Kraut::Client
   #
   # Contains class and instance methods for executing SOAP requests.
   module Client
-
-    autoload :Application, "kraut/application"
 
     module ClassMethods
 
