@@ -2,6 +2,9 @@ require "rspec"
 require "mocha"
 require "webmock"
 
+require "savon"
+Savon.log = false
+
 # Requires supporting files.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |file| require file }
 
