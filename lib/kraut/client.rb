@@ -26,7 +26,8 @@ module Kraut
         if response.soap_fault?
           handle_soap_fault response
         else
-          response.to_hash["#{method}_response".to_sym]
+          hash_method = response.respond_to?(:original_hash) ? :original_hash : :to_hash
+          response.send(hash_method)["#{method}_response".to_sym]
         end
       end
 
