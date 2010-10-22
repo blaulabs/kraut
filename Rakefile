@@ -36,4 +36,15 @@ rescue LoadError
   task(:spec) { abort message }
 end
 
-task :default => :spec
+begin
+  require "ci/reporter/rake/rspec"
+rescue LoadError
+  namespace :ci do
+    namespace :setup do
+      desc message = %{"gem install ci_reporter" to run the specs with reporting for ci servers}
+      task(:rspec) { abort message }
+    end
+  end
+end
+
+task :default => %w(ci:setup:rspec spec)
