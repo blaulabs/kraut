@@ -1,0 +1,3 @@
+module Kraut
+  # Your code goes here...
+end

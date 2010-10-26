@@ -2,6 +2,7 @@ require "spec_helper"
 require "kraut/principal"
 
 describe Kraut::Principal do
+
   let(:principal) { Kraut::Principal }
 
   before(:all) do
@@ -42,6 +43,32 @@ describe Kraut::Principal do
     end
   end
 
+  describe "member_of?" do
+   
+    before do
+      savon_mock :authenticate_principal, :success
+      savon_mock :find_principal_with_attributes_by_name, :success 
+    end
+
+    let(:principal) { Kraut::Principal.authenticate "test", "password" }
+
+    it "should return true if member of group" do
+      savon_mock :is_group_member, :success
+      principal.member_of?("test_group").should be_true
+    end
+
+    it "should return false if not member of group" do
+      savon_mock :is_group_member, :not_in_group
+      principal.member_of?("test_group").should be_false
+    end
+
+    it "should do not call crowd if group membership is saved" do
+      principal.groups << "test_group"
+      principal.member_of?("test_group").should be_true
+    end
+
+  end
+
   describe ".authenticate" do
     before do 
       savon_mock :authenticate_principal, :success
@@ -70,4 +97,5 @@ describe Kraut::Principal do
       end
     end
   end
+
 end

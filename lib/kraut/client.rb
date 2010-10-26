@@ -35,7 +35,7 @@ module Kraut
       # Adds application authentication credentials.
       def auth_request(method, body = {})
         body[:in0] = { "aut:name" => Application.name, "aut:token" => Application.token }
-        body[:order!] = [:in0, :in1]
+        body[:order!] = sort_elements body 
         request method, body
       end
 
@@ -48,6 +48,10 @@ module Kraut
       end
 
     private
+
+      def sort_elements body
+        body.map{ |key, value| key.to_s }.sort.map{|item| item.to_sym}
+      end
 
       def handle_soap_fault(response)
         error = case response.to_hash[:fault][:detail].keys.first.to_s

@@ -21,10 +21,14 @@ module Kraut
       new :name => name, :password => password, :token => response[:out]
     end
 
-    attr_accessor :name, :password, :token, :attributes
+    attr_accessor :name, :password, :token, :attributes, :groups
 
     def attributes
       @attributes ||= find_attributes
+    end
+
+    def groups
+      @groups ||= []
     end
 
     def display_name
@@ -39,7 +43,21 @@ module Kraut
       attributes[:params][:mail]
     end
 
+    def member_of?(group_name)
+      return true if groups.include? group_name
+
+      member_of = auth_request(:is_group_member, member_of_request_hash(group_name))[:out]
+      groups << group_name if member_of
+      member_of
+    end
+
   private
+    
+    def member_of_request_hash(group_name)
+      { :in1 => group_name,
+        :in2 => name
+      }
+    end
 
     # Retrieves attributes for the current principal.
     def find_attributes

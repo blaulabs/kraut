@@ -1,0 +1,8 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <ns1:isGroupMemberResponse xmlns:ns1="urn:SecurityServer">
+         <ns1:out>true</ns1:out>
+      </ns1:isGroupMemberResponse>
+   </soap:Body>
+</soap:Envelope>
+
