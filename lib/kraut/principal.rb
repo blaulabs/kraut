@@ -54,21 +54,19 @@ module Kraut
   private
     
     def member_of_request_hash(group_name)
-      { :in1 => group_name,
-        :in2 => name
-      }
+      { :in1 => group_name, :in2 => name }
     end
 
     # Retrieves attributes for the current principal.
     def find_attributes
       response = auth_request(:find_principal_with_attributes_by_name, :in1 => name)[:out]
       base_attributes = response.delete :attributes
-
+      
       response[:params] = base_attributes[:soap_attribute].inject({}) do |memo, entry| 
         memo[entry[:name].snakecase.to_sym] = entry[:values][:string]
         memo
       end
-
+      
       response
     end
 

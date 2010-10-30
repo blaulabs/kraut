@@ -44,13 +44,12 @@ describe Kraut::Principal do
   end
 
   describe "member_of?" do
-   
+    let(:principal) { Kraut::Principal.authenticate "test", "password" }
+
     before do
       savon_mock :authenticate_principal, :success
       savon_mock :find_principal_with_attributes_by_name, :success 
     end
-
-    let(:principal) { Kraut::Principal.authenticate "test", "password" }
 
     it "should return true if member of group" do
       savon_mock :is_group_member, :success
@@ -66,13 +65,10 @@ describe Kraut::Principal do
       principal.groups << "test_group"
       principal.member_of?("test_group").should be_true
     end
-
   end
 
   describe ".authenticate" do
-    before do 
-      savon_mock :authenticate_principal, :success
-    end 
+    before { savon_mock :authenticate_principal, :success } 
 
     it "should return a principal" do
       principal = Kraut::Principal.authenticate "test", "Blau123"
@@ -80,18 +76,18 @@ describe Kraut::Principal do
     end
 
     context "in context of an invalid password" do
+      before { savon_mock :authenticate_principal, :invalid_password }
+
       it "should raise an InvalidAuthentication " do
-        savon_mock :authenticate_principal, :invalid_password
-        
         lambda { Kraut::Principal.authenticate "test", "invalid_password"}.
           should raise_error(Kraut::InvalidAuthentication, /password was invalid/)
       end
     end
 
     context "in context of an invalid username" do
+      before { savon_mock :authenticate_principal, :invalid_user }
+
       it "should raise an InvalidAuthentication " do
-        savon_mock :authenticate_principal, :invalid_user
-        
         lambda { Kraut::Principal.authenticate "invalid_user", "password"}.
           should raise_error(Kraut::InvalidAuthentication, /Failed to find entity of type/)
       end
