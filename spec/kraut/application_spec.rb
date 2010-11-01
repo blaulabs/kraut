@@ -4,7 +4,7 @@ require "kraut/application"
 describe Kraut::Application do
   let(:application) { Kraut::Application }
 
-  before(:all) do
+  before do
     savon_mock :authenticate_application, :success
     Kraut::Application.authenticate "app", "password"
   end
@@ -25,6 +25,10 @@ describe Kraut::Application do
 
     it "should set the authentication token" do
       application.token.should == "J8n5KCem7Djk30zel0rUdA00"
+    end
+
+    it "should set the last authentication time" do
+      application.authenticated_at.should be_a(Time)
     end
 
     context "in case of an invalid application name" do
@@ -61,6 +65,32 @@ describe Kraut::Application do
   describe ".token" do
     it "should contain the authentication token" do
       application.token.should == "J8n5KCem7Djk30zel0rUdA00"
+    end
+  end
+
+  describe ".authentication_required?" do
+    context "when not authenticated" do
+      before { Kraut::Application.authenticated_at = nil }
+
+      it "should return true" do
+        application.authentication_required?.should == true
+      end
+    end
+
+    context "when authentication expired (default timeout = 10 min)" do
+      before { Kraut::Application.authenticated_at = Time.now - (60 * 11) }
+
+      it "should return true" do
+        application.authentication_required?.should == true
+      end
+    end
+
+    context "when authenticated" do
+      before { Kraut::Application.authenticated_at = Time.now }
+
+      it "should return false" do
+        application.authentication_required?.should == false
+      end
     end
   end
 
