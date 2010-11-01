@@ -10,3 +10,5 @@ RSpec.configure do |config|
   config.mock_with :mocha
   config.include SavonHelper
 end
+
+Kraut.endpoint = "http://example.com"

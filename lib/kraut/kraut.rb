@@ -8,11 +8,6 @@ module Kraut
 
     attr_accessor :endpoint
 
-    # TODO: remove after testing.
-    def endpoint
-      @endpoint ||= "http://magnesium:8095/crowd/services/SecurityServer"
-    end
-
     def namespace
       @namespace ||= "http://authentication.integration.crowd.atlassian.com"
     end
