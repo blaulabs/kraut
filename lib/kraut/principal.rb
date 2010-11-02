@@ -28,7 +28,7 @@ module Kraut
     end
 
     def groups
-      @groups ||= []
+      @groups ||= {}
     end
 
     def display_name
@@ -44,19 +44,12 @@ module Kraut
     end
 
     def member_of?(group_name)
-      return true if groups.include? group_name
-
-      member_of = auth_request(:is_group_member, member_of_request_hash(group_name))[:out]
-      groups << group_name if member_of
-      member_of
+      return groups[group_name] unless groups[group_name].nil?
+      groups[group_name] = auth_request(:is_group_member, :in1 => group_name, :in2 => name)[:out]
     end
 
   private
     
-    def member_of_request_hash(group_name)
-      { :in1 => group_name, :in2 => name }
-    end
-
     # Retrieves attributes for the current principal.
     def find_attributes
       response = auth_request(:find_principal_with_attributes_by_name, :in1 => name)[:out]

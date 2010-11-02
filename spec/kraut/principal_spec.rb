@@ -61,9 +61,14 @@ describe Kraut::Principal do
       principal.member_of?("test_group").should be_false
     end
 
-    it "should do not call crowd if group membership is saved" do
-      principal.groups << "test_group"
+    it "should not ask crowd if positive group membership is already saved" do
+      principal.groups["test_group"] = true
       principal.member_of?("test_group").should be_true
+    end
+
+    it "should not ask crowd if negative group membership is already saved" do
+      principal.groups["test_group2"] = false
+      principal.member_of?("test_group2").should be_false
     end
   end
 
