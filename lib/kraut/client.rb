@@ -54,7 +54,9 @@ module Kraut
       end
 
       def handle_soap_fault(response)
-        error = case response.original_hash[:fault][:detail].keys.first.to_s
+        # TODO fix this
+        hash = response.original_hash rescue response.to_hash
+        error = case hash[:fault][:detail].keys.first.to_s
           when /^invalid_authentication/ then InvalidAuthentication
           when /^invalid_authorization/  then InvalidAuthorization
         end
