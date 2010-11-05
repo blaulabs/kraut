@@ -3,6 +3,7 @@ module Kraut
   class Error < RuntimeError; end
   class InvalidAuthorization < Error; end
   class InvalidAuthentication < Error; end
+  class UnknownError < Error; end
 
   class << self
 

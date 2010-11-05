@@ -1,9 +1,6 @@
 require "savon"
 require "kraut/kraut"
 
-# TODO: add instance level configuration in Savon
-Savon.raise_errors = false
-
 module Kraut
 
   autoload :Application, "kraut/application"
@@ -24,11 +21,12 @@ module Kraut
         end
         
         if response.soap_fault?
-          handle_soap_fault response
+          handle_soap_fault response.soap_fault
         else
-          hash_method = response.respond_to?(:original_hash) ? :original_hash : :to_hash
-          response.send(hash_method)["#{method}_response".to_sym]
+          response.original_hash["#{method}_response".to_sym]
         end
+      rescue Savon::SOAP::Fault => soap_fault
+        handle_soap_fault soap_fault
       end
 
       # Executes a SOAP request to a given +method+ with an optional +body+ Hash.
@@ -53,15 +51,14 @@ module Kraut
         body.map { |key, value| key.to_s }.sort.map { |item| item.to_sym }
       end
 
-      def handle_soap_fault(response)
-        # TODO fix this
-        hash = response.original_hash rescue response.to_hash
-        error = case hash[:fault][:detail].keys.first.to_s
+      def handle_soap_fault(soap_fault)
+        error = case soap_fault.to_hash[:fault][:detail].keys.first.to_s
           when /^invalid_authentication/ then InvalidAuthentication
           when /^invalid_authorization/  then InvalidAuthorization
+          else                                UnknownError
         end
         
-        raise error, response.soap_fault
+        raise error, soap_fault.to_s
       end
 
     end
