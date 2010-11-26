@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = s.name
 
   s.add_dependency "httpclient", "~> 2.1.5"
-  s.add_dependency "savon", "~> 0.8.0.beta.2"
+  s.add_dependency "savon", "~> 0.8.0.beta.4"
 
   s.add_development_dependency "ci_reporter", "~> 1.6.3"
   s.add_development_dependency "rspec", "~> 2.0.0"

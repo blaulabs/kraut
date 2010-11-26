@@ -49,7 +49,7 @@ module Kraut
     end
 
   private
-    
+
     # Retrieves attributes for the current principal.
     def find_attributes
       response = auth_request(:find_principal_with_attributes_by_name, :in1 => name)[:out]

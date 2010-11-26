@@ -23,7 +23,7 @@ module Kraut
         if response.soap_fault?
           handle_soap_fault response.soap_fault
         else
-          response.original_hash["#{method}_response".to_sym]
+          response.to_hash["#{method}_response".to_sym]
         end
       rescue Savon::SOAP::Fault => soap_fault
         handle_soap_fault soap_fault
