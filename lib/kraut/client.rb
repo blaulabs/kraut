@@ -47,15 +47,16 @@ module Kraut
 
     private
 
-      def sort_elements body
+      def sort_elements(body)
         body.map { |key, value| key.to_s }.sort.map { |item| item.to_sym }
       end
 
       def handle_soap_fault(soap_fault)
         error = case soap_fault.to_hash[:fault][:detail].keys.first.to_s
-          when /^invalid_authentication/ then InvalidAuthentication
-          when /^invalid_authorization/  then InvalidAuthorization
-          else                                UnknownError
+          when /^invalid_authentication/              then InvalidAuthentication
+          when /^invalid_authorization/               then InvalidAuthorization
+          when /^application_access_denied_exception/ then ApplicationAccessDenied
+          else                                             UnknownError
         end
         
         raise error, soap_fault.to_s

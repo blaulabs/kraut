@@ -1,0 +1,11 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <soap:Fault>
+         <faultcode>soap:Server</faultcode>
+         <faultstring>com.atlassian.crowd.manager.application.ApplicationAccessDeniedException: User does not have access to application my-app</faultstring>
+         <detail>
+            <ApplicationAccessDeniedException xmlns="urn:SecurityServer" />
+         </detail>
+      </soap:Fault>
+   </soap:Body>
+</soap:Envelope>

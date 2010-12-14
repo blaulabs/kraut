@@ -5,12 +5,14 @@ describe Kraut::Application do
   let(:application) { Kraut::Application }
 
   before do
-    savon_mock :authenticate_application, :success
+    savon.expects(:authenticate_application).returns(:success)
     Kraut::Application.authenticate "app", "password"
   end
  
   describe ".authenticate" do
     it "should return the application credentials" do
+      savon.expects(:authenticate_application).returns(:success)
+      
       credentials = application.authenticate "app", "password"
       credentials.should == ["app", "password", "J8n5KCem7Djk30zel0rUdA00"]
     end
@@ -32,7 +34,7 @@ describe Kraut::Application do
     end
 
     context "in case of an invalid application name" do
-      before { savon_mock :authenticate_application, :invalid_app }
+      before { savon.expects(:authenticate_application).returns(:invalid_app) }
 
       it "should raise an InvalidAuthentication error" do
         lambda { Kraut::Application.authenticate "invalid", "invalid" }.
@@ -41,7 +43,7 @@ describe Kraut::Application do
     end
 
     context "in case of an invalid password" do
-      before { savon_mock :authenticate_application, :invalid_password }
+      before { savon.expects(:authenticate_application).returns(:invalid_password) }
 
       it "should raise an InvalidAuthentication error" do
         lambda { Kraut::Application.authenticate "app", "invalid" }.

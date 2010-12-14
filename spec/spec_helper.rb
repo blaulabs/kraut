@@ -1,14 +1,13 @@
-require 'rubygems'
-require 'bundler'
-Bundler.require(:default, :development)
-
-Savon.log = false
-
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |file| require file }
+require "rubygems"
+require "bundler"
+Bundler.require :default, :development
 
 RSpec.configure do |config|
   config.mock_with :mocha
-  config.include SavonHelper
+  config.include Savon::Spec::Macros
 end
+
+Savon.log = false
+Savon::Spec::Fixture.path = File.expand_path("../fixtures", __FILE__)
 
 Kraut.endpoint = "http://example.com"
