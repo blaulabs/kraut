@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "ci_reporter", "~> 1.6.3"
   s.add_development_dependency "rspec", "~> 2.0.0"
+  s.add_development_dependency "autotest", "~> 4.4.2"
   s.add_development_dependency "mocha", "~> 0.9.8"
   s.add_development_dependency "webmock", "~> 1.3.5"
 
