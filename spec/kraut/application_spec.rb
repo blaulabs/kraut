@@ -8,7 +8,7 @@ describe Kraut::Application do
     savon.expects(:authenticate_application).returns(:success)
     Kraut::Application.authenticate "app", "password"
   end
- 
+
   describe ".authenticate" do
     it "should return the application credentials" do
       savon.expects(:authenticate_application).returns(:success)
