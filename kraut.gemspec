@@ -10,19 +10,19 @@ Gem::Specification.new do |s|
   s.email = "blaulabs@blau.de"
   s.homepage = "http://github.com/blaulabs/#{s.name}"
   s.summary = "Crowd Interface"
-  s.description = "Interface for Atlassian Crowd"
+  s.description = "Interface for the Atlassian Crowd SOAP API"
 
   s.rubyforge_project = s.name
 
-  s.add_dependency "httpclient", "~> 2.1.5"
-  s.add_dependency "savon", "~> 0.8.0.beta.4"
+  s.add_dependency "httpclient", "~> 2.1.6"
+  s.add_dependency "savon", "~> 0.8.2"
 
   s.add_development_dependency "ci_reporter", "~> 1.6.3"
-  s.add_development_dependency "rspec", "~> 2.0.0"
+  s.add_development_dependency "rspec", "~> 2.4.0"
   s.add_development_dependency "autotest", "~> 4.4.2"
-  s.add_development_dependency "mocha", "~> 0.9.8"
+  s.add_development_dependency "mocha", "~> 0.9.9"
   s.add_development_dependency "webmock", "~> 1.3.5"
-  s.add_development_dependency "savon_spec", "~> 0.1.1"
+  s.add_development_dependency "savon_spec", "~> 0.1.2"
 
   s.files = `git ls-files`.split("\n")
   s.require_path = "lib"
