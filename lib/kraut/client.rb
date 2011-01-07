@@ -9,8 +9,7 @@ module Kraut
   #
   # Contains class and instance methods for executing SOAP requests.
   module Client
-
-    module ClassMethods
+    class << self
 
       # Executes a SOAP request to a given +method+ with an optional +body+ Hash.
       # Ensures to always raise SOAP faults if they happen and returns a response Hash.
@@ -30,10 +29,10 @@ module Kraut
       end
 
       # Executes a SOAP request to a given +method+ with an optional +body+ Hash.
-      # Adds application authentication credentials.
+      # Adds application authentication credentials and delegates to the +request+ method.
       def auth_request(method, body = {})
         body[:in0] = { "aut:name" => Application.name, "aut:token" => Application.token }
-        body[:order!] = sort_elements body
+        body[:order!] = body.keys.sort_by { |key| key.to_s }
         request method, body
       end
 
@@ -47,41 +46,17 @@ module Kraut
 
     private
 
-      def sort_elements(body)
-        body.map { |key, value| key.to_s }.sort.map { |item| item.to_sym }
-      end
-
       def handle_soap_fault(soap_fault)
         error = case soap_fault.to_hash[:fault][:detail].keys.first.to_s
-          when /^invalid_authentication/              then InvalidAuthentication
-          when /^invalid_authorization/               then InvalidAuthorization
-          when /^application_access_denied_exception/ then ApplicationAccessDenied
-          else                                             UnknownError
+          when /^invalid_authentication/    then InvalidAuthentication
+          when /^invalid_authorization/     then InvalidAuthorization
+          when /^application_access_denied/ then ApplicationAccessDenied
+          else                                   UnknownError
         end
         
         raise error, soap_fault.to_s
       end
 
     end
-
-    def self.included(base)
-      base.extend ClassMethods
-    end
-
-    # Delegates to <tt>self.class.request</tt>.
-    def request(method, body = {})
-      self.class.request method, body
-    end
-
-    # Delegates to <tt>self.class.auth_request</tt>.
-    def auth_request(method, body = {})
-      self.class.auth_request method, body
-    end
-
-    # Delegates to <tt>self.class.client</tt>.
-    def client
-      self.class.client
-    end
-
   end
 end

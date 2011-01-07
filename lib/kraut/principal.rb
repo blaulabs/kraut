@@ -8,12 +8,11 @@ module Kraut
   #
   # Represents a principal registered with Crowd. Principals can have roles and belong to groups.
   class Principal
-    include Client
     include Mapper
 
     # Expects a +name+ and +password+ and returns a new authenticated <tt>Kraut::Principal</tt>.
     def self.authenticate(name, password)
-      response = auth_request :authenticate_principal, :in1 => {
+      response = Client.auth_request :authenticate_principal, :in1 => {
         "aut:application" => Application.name,
         "aut:credential" => { "aut:credential" => password }, "aut:name" => name
       }
@@ -45,14 +44,14 @@ module Kraut
 
     def member_of?(group_name)
       return groups[group_name] unless groups[group_name].nil?
-      groups[group_name] = auth_request(:is_group_member, :in1 => group_name, :in2 => name)[:out]
+      groups[group_name] = Client.auth_request(:is_group_member, :in1 => group_name, :in2 => name)[:out]
     end
 
   private
 
     # Retrieves attributes for the current principal.
     def find_attributes
-      response = auth_request(:find_principal_with_attributes_by_name, :in1 => name)[:out]
+      response = Client.auth_request(:find_principal_with_attributes_by_name, :in1 => name)[:out]
       base_attributes = response.delete :attributes
       
       response[:params] = base_attributes[:soap_attribute].inject({}) do |memo, entry| 
