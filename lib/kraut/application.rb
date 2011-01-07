@@ -6,7 +6,6 @@ module Kraut
   #
   # Represents an application registered with Crowd.
   class Application
-
     class << self
 
       # Authenticates an application with a given +name+ and +password+.
@@ -25,6 +24,5 @@ module Kraut
       end
 
     end
-
   end
 end
