@@ -7,7 +7,7 @@ module Kraut
 
   # = Kraut::Client
   #
-  # Contains class and instance methods for executing SOAP requests.
+  # Wraps a <tt>Savon::Client</tt> and executes SOAP requests.
   module Client
     class << self
 
