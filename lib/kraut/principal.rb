@@ -20,27 +20,31 @@ module Kraut
       new :name => name, :password => password, :token => response[:out]
     end
 
-    attr_accessor :name, :password, :token, :attributes, :groups
+    attr_accessor :name, :password, :token
+
+    def display_name
+      attributes[:display_name]
+    end
+
+    def email
+      attributes[:mail]
+    end
+
+    def requires_password_change?
+      attributes[:requires_password_change]
+    end
 
     def attributes
       @attributes ||= find_attributes
     end
 
+    attr_writer :attributes
+
     def groups
       @groups ||= {}
     end
 
-    def display_name
-      attributes[:params][:display_name]
-    end
-
-    def requires_password_change?
-      attributes[:params][:requires_password_change]
-    end
-
-    def email
-      attributes[:params][:mail]
-    end
+    attr_writer :groups
 
     def member_of?(group_name)
       return groups[group_name] unless groups[group_name].nil?
@@ -52,14 +56,11 @@ module Kraut
     # Retrieves attributes for the current principal.
     def find_attributes
       response = Client.auth_request(:find_principal_with_attributes_by_name, :in1 => name)[:out]
-      base_attributes = response.delete :attributes
       
-      response[:params] = base_attributes[:soap_attribute].inject({}) do |memo, entry| 
+      response[:attributes][:soap_attribute].inject({}) do |memo, entry| 
         memo[entry[:name].snakecase.to_sym] = entry[:values][:string]
         memo
       end
-      
-      response
     end
 
   end

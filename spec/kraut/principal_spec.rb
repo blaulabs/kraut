@@ -3,8 +3,6 @@ require "kraut/principal"
 
 describe Kraut::Principal do
 
-  let(:principal) { Kraut::Principal }
-
   before(:all) do
     savon.expects(:authenticate_application).returns(:success)
     Kraut::Application.authenticate "app", "password"
@@ -19,15 +17,15 @@ describe Kraut::Principal do
     end
 
     it "should have a name" do
-      principal.name.should == 'test'
+      principal.name.should == "test"
     end
 
     it "should have a password" do
-      principal.password.should == 'password'
+      principal.password.should == "password"
     end
 
     it "should have a token" do
-      principal.token.should == 'COvlhb092poBHXi4rh4PQg00'
+      principal.token.should == "COvlhb092poBHXi4rh4PQg00"
     end
 
     it "should have a display_name" do
@@ -53,22 +51,22 @@ describe Kraut::Principal do
 
     it "should return true if member of group" do
       savon.expects(:is_group_member).returns(:success)
-      principal.member_of?("test_group").should be_true
+      principal.should be_member_of("a_group")
     end
 
     it "should return false if not member of group" do
       savon.expects(:is_group_member).returns(:not_in_group)
-      principal.member_of?("test_group").should be_false
+      principal.should_not be_member_of("another_group")
     end
 
     it "should not ask crowd if positive group membership is already saved" do
-      principal.groups["test_group"] = true
-      principal.member_of?("test_group").should be_true
+      principal.groups["a_group"] = true
+      principal.member_of?("a_group").should be_true
     end
 
     it "should not ask crowd if negative group membership is already saved" do
-      principal.groups["test_group2"] = false
-      principal.member_of?("test_group2").should be_false
+      principal.groups["another_group"] = false
+      principal.member_of?("another_group").should be_false
     end
   end
 
