@@ -47,11 +47,11 @@ module Kraut
     private
 
       def handle_soap_fault(soap_fault)
-        error = case soap_fault.to_hash[:fault][:detail].keys.first.to_s
-          when /^invalid_authentication/    then InvalidAuthentication
-          when /^invalid_authorization/     then InvalidAuthorization
-          when /^application_access_denied/ then ApplicationAccessDenied
-          else                                   UnknownError
+        error = case soap_fault.to_hash[:fault][:detail].keys.first
+          when :invalid_authentication_exception    then InvalidAuthentication
+          when :invalid_authorization_exception     then InvalidAuthorization
+          when :application_access_denied_exception then ApplicationAccessDenied
+          else                                           UnknownError
         end
         
         raise error, soap_fault.to_s
