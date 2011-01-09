@@ -32,16 +32,16 @@ describe Kraut::Principal do
       principal.display_name.should == "Test User"
     end
 
-    it "should have a requires_password_change?" do
-      principal.requires_password_change?.should be_false
-    end
-
     it "should have an email" do
       principal.email.should == "test@blau.de"
     end
+
+    it "should return whether the principal's password is expired" do
+      principal.requires_password_change?.should be_false
+    end
   end
 
-  describe "member_of?" do
+  describe "#member_of?" do
     let(:principal) { Kraut::Principal.authenticate "test", "password" }
 
     before do
