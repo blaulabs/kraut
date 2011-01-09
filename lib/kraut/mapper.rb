@@ -9,7 +9,6 @@ module Kraut
     # Calls an <tt>after_initialize</tt> method if available.
     def initialize(attributes = {})
       mass_assign! attributes
-      after_initialize if respond_to? :after_initialize
     end
 
     # Expects a Hash of +attributes+ and assigns them via attribute writers.
