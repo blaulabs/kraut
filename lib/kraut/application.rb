@@ -19,6 +19,8 @@ module Kraut
 
       attr_accessor :name, :password, :token, :authenticated_at
 
+      # Returns whether the application needs to (re-)authenticate itself.
+      # Defaults to a +timeout+ of 10 minutes.
       def authentication_required?(timeout = 10)
         !authenticated_at || authenticated_at < Time.now - (60 * timeout)
       end

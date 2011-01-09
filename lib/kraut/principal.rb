@@ -6,7 +6,7 @@ module Kraut
 
   # = Kraut::Principal
   #
-  # Represents a principal registered with Crowd. Principals can have roles and belong to groups.
+  # Represents a principal registered with Crowd.
   class Principal
     include Mapper
 
@@ -22,34 +22,40 @@ module Kraut
 
     attr_accessor :name, :password, :token
 
+    # Returns the principal name to display.
     def display_name
       attributes[:display_name]
     end
 
+    # Returns the principal's email address.
     def email
       attributes[:mail]
     end
 
+    # Returns whether the principal's password is expired. Principals with an expired password
+    # are still able to authenticate and access your application if you do not use this method.
     def requires_password_change?
       attributes[:requires_password_change]
     end
 
+    # Returns a Hash of attributes for the principal.
     def attributes
       @attributes ||= find_attributes
     end
 
     attr_writer :attributes
 
+    # Returns whether the principal is a member of a given +group+.
+    def member_of?(group)
+      return groups[group] unless groups[group].nil?
+      groups[group] = Client.auth_request(:is_group_member, :in1 => group, :in2 => name)[:out]
+    end
+
     def groups
       @groups ||= {}
     end
 
     attr_writer :groups
-
-    def member_of?(group_name)
-      return groups[group_name] unless groups[group_name].nil?
-      groups[group_name] = Client.auth_request(:is_group_member, :in1 => group_name, :in2 => name)[:out]
-    end
 
   private
 
