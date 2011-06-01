@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "mocha", "~> 0.9.9"
   s.add_development_dependency "webmock", "~> 1.3.5"
   s.add_development_dependency "savon_spec", "~> 0.1.6"
+  s.add_development_dependency "rake", "0.8.7"
 
   s.files = `git ls-files`.split("\n")
   s.require_path = "lib"
