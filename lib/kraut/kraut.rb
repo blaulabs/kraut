@@ -4,6 +4,7 @@ module Kraut
   class InvalidAuthorization < Error; end
   class InvalidAuthentication < Error; end
   class ApplicationAccessDenied < Error; end
+  class InvalidPrincipalToken < Error; end
   class UnknownError < Error; end
 
   class << self

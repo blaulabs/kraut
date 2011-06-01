@@ -1,0 +1,39 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Body>
+      <ns1:findPrincipalByTokenResponse xmlns:ns1="urn:SecurityServer">
+         <ns1:out>
+            <ID xmlns="http://soap.integration.crowd.atlassian.com">-1</ID>
+            <active xmlns="http://soap.integration.crowd.atlassian.com">true</active>
+            <attributes xmlns="http://soap.integration.crowd.atlassian.com">
+               <SOAPAttribute>
+                  <name>givenName</name>
+                  <values>
+                     <ns1:string>Test</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>sn</name>
+                  <values>
+                     <ns1:string>Supervisor</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>displayName</name>
+                  <values>
+                     <ns1:string>Test Supervisor</ns1:string>
+                  </values>
+               </SOAPAttribute>
+               <SOAPAttribute>
+                  <name>mail</name>
+                  <values>
+                     <ns1:string>no_reply@blau.de</ns1:string>
+                  </values>
+               </SOAPAttribute>
+            </attributes>
+            <description xsi:nil="true" xmlns="http://soap.integration.crowd.atlassian.com"/>
+            <directoryId xmlns="http://soap.integration.crowd.atlassian.com">32769</directoryId>
+            <name xmlns="http://soap.integration.crowd.atlassian.com">test-supervisor</name>
+         </ns1:out>
+      </ns1:findPrincipalByTokenResponse>
+   </soap:Body>
+</soap:Envelope>

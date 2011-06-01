@@ -108,4 +108,29 @@ describe Kraut::Principal do
     end
   end
 
+  describe ".find_by_token" do
+    context "when successful" do
+      before { savon.expects(:find_principal_by_token).returns(:success) } 
+
+      it "should return a principal" do
+        principal = Kraut::Principal.find_by_token "abcdefghijklmnopqrstuvwxyz0123456789"
+        principal.should be_a(Kraut::Principal)
+      end
+      
+      it "should set the name of the principal to the name from the response" do
+        principal = Kraut::Principal.find_by_token "abcdefghijklmnopqrstuvwxyz0123456789"
+        principal.name.should == 'test-supervisor'
+      end
+    end
+
+    context "with an invalid token" do
+      before { savon.expects(:find_principal_by_token).returns(:invalid_token) }
+    
+      it "should raise an InvalidToken" do
+        lambda { Kraut::Principal.find_by_token "9876543210zyxwvutsrqponmlkjihgfedcba" }.
+          should raise_error(Kraut::InvalidPrincipalToken, /Failed to find entity of type/)
+      end
+    end
+  end
+
 end

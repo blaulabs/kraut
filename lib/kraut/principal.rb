@@ -19,6 +19,13 @@ module Kraut
       
       new :name => name, :password => password, :token => response[:out]
     end
+    
+    def self.find_by_token(token)
+      response = Client.auth_request :find_principal_by_token, :in1 => token.to_s
+      
+      # assumption: this works without failure since the auth_request raises an error if the request was not successful!
+      new :name => response[:out][:name], :token => token.to_s
+    end
 
     attr_accessor :name, :password, :token
 

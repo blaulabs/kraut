@@ -51,6 +51,7 @@ module Kraut
           when :invalid_authentication_exception    then InvalidAuthentication
           when :invalid_authorization_exception     then InvalidAuthorization
           when :application_access_denied_exception then ApplicationAccessDenied
+          when :invalid_token_exception             then InvalidPrincipalToken
           else                                           UnknownError
         end
         
