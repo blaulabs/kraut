@@ -17,14 +17,14 @@ module Kraut
         "aut:credential" => { "aut:credential" => password }, "aut:name" => name
       }
       
-      new :name => name, :password => password, :token => response[:out]
+      new :name => name, :password => password, :token => response[:out].to_s
     end
     
     def self.find_by_token(token)
       response = Client.auth_request :find_principal_by_token, :in1 => token.to_s
       
       # assumption: this works without failure since the auth_request raises an error if the request was not successful!
-      new :name => response[:out][:name], :token => token.to_s
+      new :name => response[:out][:name].to_s, :token => token.to_s
     end
 
     attr_accessor :name, :password, :token
@@ -70,8 +70,12 @@ module Kraut
     def find_attributes
       response = Client.auth_request(:find_principal_with_attributes_by_name, :in1 => name)[:out]
       
-      response[:attributes][:soap_attribute].inject({}) do |memo, entry| 
-        memo[entry[:name].snakecase.to_sym] = entry[:values][:string]
+      response[:attributes][:soap_attribute].inject({}) do |memo, entry|
+        # next two lines: prevent Nori::StringWithAttributes to bubble up
+        # use plain strings instead (for serializability) [thomas, 2011-06-07]
+        value = entry[:values][:string]
+        value = value.to_s if value.is_a?(String)
+        memo[entry[:name].snakecase.to_sym] = value
         memo
       end
     end

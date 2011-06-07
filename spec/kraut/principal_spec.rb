@@ -18,26 +18,31 @@ describe Kraut::Principal do
 
     it "should have a name" do
       principal.name.should == "test"
+      principal.name.class.should == String
     end
 
     it "should have a password" do
       principal.password.should == "password"
+      principal.password.class.should == String
     end
 
     it "should have a token" do
       principal.token.should == "COvlhb092poBHXi4rh4PQg00"
+      principal.token.class.should == String
     end
 
     it "should have a display_name" do
       principal.display_name.should == "Test User"
+      principal.display_name.class.should == String
     end
 
     it "should have an email" do
       principal.email.should == "test@blau.de"
+      principal.email.class.should == String
     end
 
     it "should return whether the principal's password is expired" do
-      principal.requires_password_change?.should be_false
+      principal.requires_password_change?.should == false
     end
   end
 
@@ -61,12 +66,12 @@ describe Kraut::Principal do
 
     it "should not ask crowd if positive group membership is already saved" do
       principal.groups["a_group"] = true
-      principal.member_of?("a_group").should be_true
+      principal.member_of?("a_group").should == true
     end
 
     it "should not ask crowd if negative group membership is already saved" do
       principal.groups["another_group"] = false
-      principal.member_of?("another_group").should be_false
+      principal.member_of?("another_group").should == false
     end
   end
 
@@ -120,6 +125,7 @@ describe Kraut::Principal do
       it "should set the name of the principal to the name from the response" do
         principal = Kraut::Principal.find_by_token "abcdefghijklmnopqrstuvwxyz0123456789"
         principal.name.should == 'test-supervisor'
+        principal.name.class.should == String
       end
     end
 
