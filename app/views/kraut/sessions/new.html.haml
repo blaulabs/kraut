@@ -1,0 +1,15 @@
+%section
+  %h1 Anmelden
+  - if flash[:alert]
+    .flash.alert= flash[:alert]
+
+  = form_for @session do |f|
+    = f.error_messages :id => nil, :class => "errors"
+
+    %fieldset
+      = f.label :username
+      = f.text_field :username, :class => "width m"
+      = f.label :password
+      = f.password_field :password, :class => "width m"
+
+    %button(type="submit" id="session_submit") Anmelden

@@ -70,3 +70,14 @@ To verify whether a principal belongs to a certain group:
 Kraut stores all positive and negative group-requests in a Hash:
 
     Kraut::Principal#groups  # => { "staff" => true, "supervisor" => false }
+
+Login
+-----
+
+In order to provide easy login to your apps, just require 'kraut/rails/engine' instead of just 'kraut'. Then, you'll have a login controller unter '/sessions/new'. To configure it's behaviour, add it in 'config/initializers/kraut.rb':
+
+    Kraut.endpoint = AppConfig.webservices.crowd.baseaddress
+    Kraut::Rails::Engine.config.layout = "application"                      # the layout to use for the login page
+    Kraut::Rails::Engine.config.webservice = AppConfig.webservices.crowd    # hash containing user and password for authenticatin the crowd app
+    Kraut::Rails::Engine.config.authorizations = AppConfig.authorizations   # hash containing :controller_action => [crowd_group1, crowd_group2] pairs
+    Kraut::Rails::Engine.config.entry_url = "/"                             # starting url after authentication

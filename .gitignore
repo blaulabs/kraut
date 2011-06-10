@@ -8,3 +8,4 @@ tmp
 .bundle
 Gemfile.lock
 spec/reports
+*.log

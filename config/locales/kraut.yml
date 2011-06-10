@@ -1,0 +1,14 @@
+de:
+  activemodel:
+    attributes:
+      kraut/session:
+        username: "Benutzername"
+        password: "Passwort"
+  errors:
+    kraut:
+      invalid_credentials: "Benutzername und/oder Passwort ungültig"
+      application_access_denied: "Sie haben keinen Zugriff auf diese Anwendung"
+      password_expired: "Ihr Passwort ist abgelaufen"
+      session_expired: "Die Sitzung ist abgelaufen. Bitte melde dich erneut an."
+      token_not_found: "Das Authentifizierungs-Token wurde nicht gefunden! Bitte melden Sie sich neu an."
+      access_denied: "Auf diesen Bereich haben Sie keinen Zugriff."
