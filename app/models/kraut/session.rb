@@ -4,13 +4,10 @@ module Kraut
 
     include ActiveModel::Validations
     include ActiveModel::Conversion
+    include Mapper
 
     attr_accessor :username, :password, :principal
     validates :username, :password, :presence => true
-
-    def initialize(attributes = nil)
-      attributes.each {|k,v| send("#{k}=", v) if respond_to?("#{k}=") } if attributes
-    end
 
     def name
       principal.name
