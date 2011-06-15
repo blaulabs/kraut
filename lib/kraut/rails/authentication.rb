@@ -5,7 +5,7 @@ module Kraut
     module Authentication
 
       def self.included(base)
-        base.helper_method :allowed_to?
+        base.helper_method :user, :logged_in?, :allowed_to?
         base.rescue_from SecurityError do |e|
           reset_session
           redirect_to new_kraut_sessions_path, :alert => I18n.t("errors.kraut.session_expired")
@@ -21,6 +21,10 @@ module Kraut
 
       def user
         session[:user]
+      end
+
+      def logged_in?
+        !user.nil?
       end
 
       def allowed_to?(action)
