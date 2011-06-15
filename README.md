@@ -116,17 +116,17 @@ Kraut::Rails::Engine.config.entry_url = "/"
 
 In your controllers, you have three methods to use as before_filter:
 
-* check_for_crowd_token => checks for params[:crowd_token] and logs in with that token
-* verify_login          => checks whether a user is logged in and redirects to the login page if necessary
-* verify_access         => checks whether the logged in user has access to the current action
+* `check_for_crowd_token` => checks for `params[:crowd_token]` and logs in with that token
+* `verify_login`          => checks whether a user is logged in and redirects to the login page if necessary
+* `verify_access`         => checks whether the logged in user has access to the current action
 
-verify_access uses the Kraut::Rails::Engine.config.authorizations hash. It checks for controller-action actions (eg :orders_show). If a controller action protected by verify_access isn't listed there, no one can access this action!
+`verify_access` uses the `Kraut::Rails::Engine.config.authorizations` hash. It checks for controller-action actions (eg :orders_show). If a controller action protected by `verify_access` isn't listed there, no one can access this action!
 
 In your controllers and views, you can access user specific methods:
 
-* logged_in?  => checks whether someone is logged in
-* user        => returns the currently logged in user (or nil)
-* allowed_to? => checks whether someone is logged in and this user has access to the given action (see Kraut::Rails::Engine.config.authorizations above)
+* `logged_in?`  => checks whether someone is logged in
+* `user`        => returns the currently logged in user (or nil)
+* `allowed_to?` => checks whether someone is logged in and this user has access to the given action (see `Kraut::Rails::Engine.config.authorizations` above)
 
 Testing authentication/authorization behaviour
 ----------------------------------------------
@@ -139,17 +139,17 @@ require "kraut/rails/spec_helper"
 
 Then you have in all your specs:
 
-* create_user => creates a new user to spec against
+* `create_user` => creates a new user to spec against
 
 And in your controller/view/helper specs:
 
-* login!  => log in with a newly created user
-* logout! => log out again
-* user    => user you're logged in with
+* `login!`  => log in with a newly created user
+* `logout!` => log out again
+* `user`    => user you're logged in with
 
 And finally in your controller specs:
 
-* describe_protected_action => tests an action protected by verify_login/verify_access
+* `describe_protected_action` => tests an action protected by `verify_login`/`verify_access`
 
 Example:
 
@@ -175,8 +175,8 @@ This runs three tests:
 * an automatically generated test that checks that you're redirected to the login page when logged in with a user not allowed to do :orders_index
 * an automatically generated test that checks that you're redirected to the login page when not logged in
 
-If you leave out the action (:orders_index), the first test only checks with a logged in user and the second test is omitted.
+If you leave out the `action` parameter (:orders_index in the example), the first test only checks with a logged in user and the second test is omitted.
 
-If you leave out the unauthorized_request, the second and third test are omitted and only the successful tests are executed.
+If you leave out the `unauthorized_request`, the second and third test are omitted and only the successful tests are executed.
 
-unauthorized_request is run outside the scope of the describe_protected_action block, so you can't access stuff initialized within it's before block (eg the @order above).
+`unauthorized_request` is run outside the scope of the `describe_protected_action` block, so you can't access stuff initialized within it's before block (eg the @order above).
