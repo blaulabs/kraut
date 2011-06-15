@@ -4,7 +4,7 @@ require "kraut/rails/spec/user_helper"
 
 Kraut::Application.stubs(:authenticate).returns(["name", "password", "token"])
 
-Rspec.configure do |config|
+RSpec.configure do |config|
   config.include Kraut::Rails::Spec::LoginHelper, :example_group => {
     :file_path => /spec\/(controllers|views|helpers)/
   }
