@@ -14,7 +14,7 @@ module Kraut
       authenticate_application
       if @session.valid?
         switch_user(@session)
-        redirect_to stored_location || Kraut::Rails::Engine.config.entry_url
+        redirect_to stored_location! || Kraut::Rails::Engine.config.entry_url
       else
         render :new
       end

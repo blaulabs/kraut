@@ -14,6 +14,9 @@ module Kraut
     class Application < ::Rails::Application; end
   end
 end
+Kraut::Rails::Application.configure do
+  config.active_support.deprecation = :log
+end
 Kraut::Rails::Application.initialize!
 ActionController::Base.send :include, Rails.application.routes.url_helpers
 class ApplicationController < ActionController::Base; end

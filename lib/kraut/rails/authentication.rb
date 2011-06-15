@@ -45,7 +45,7 @@ module Kraut
       end
 
       def verify_login
-        unless user
+        unless logged_in?
           store_current_location
           redirect_to new_kraut_sessions_path
         end
@@ -53,13 +53,11 @@ module Kraut
 
       def verify_access
         authenticate_application
-        unless user.allowed_to?("#{params[:controller]}_#{params[:action]}")
+        unless logged_in? && user.allowed_to?("#{params[:controller]}_#{params[:action]}")
           store_current_location
           redirect_to new_kraut_sessions_path, :alert => I18n.t("errors.kraut.access_denied")
         end
       end
-
-    protected
 
       def authenticate_application
         if Kraut::Application.authentication_required? CROWD_SESSION_TIMEOUT_MINUTES
@@ -71,7 +69,7 @@ module Kraut
         session[:stored_location] = request.fullpath if request.get?
       end
 
-      def stored_location
+      def stored_location!
         session.delete(:stored_location)
       end
 

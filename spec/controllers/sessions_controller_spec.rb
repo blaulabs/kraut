@@ -1,11 +1,10 @@
 require "spec_helper"
 
 describe Kraut::SessionsController do
-  before { Kraut::Application.stubs(:authentication_required?).returns(false) }
 
   describe "routing" do
     it "should route to new" do
-      { :get => "/", :get => "/sessions/new" }.
+      { :get => "/sessions/new" }.
         should route_to(:controller => "kraut/sessions", :action => "new")
     end
 
@@ -28,31 +27,38 @@ describe Kraut::SessionsController do
   end
 
   describe "POST :create" do
+    before do
+      @user = Kraut::Session.new
+      Kraut::Session.expects(:new).returns(@user)
+      controller.expects(:authenticate_application)
+      Kraut::Rails::Engine.config.entry_url = "/blu"
+    end
+
     context "with valid credentials" do
       context "and :stored_location is not set" do
         before do
-          Kraut::Session.any_instance.expects(:valid?).returns(true)
+          @user.expects(:valid?).returns(true)
           post :create
         end
 
         it "should store the new session" do
-          session[:user].should be_a(Kraut::Session)
+          controller.user.should == @user
         end
 
-        it "should redirect to home page" do
-          response.should redirect_to("/")
+        it "should redirect to configured entry_url" do
+          response.should redirect_to("/blu")
         end
       end
 
-      context "and :stored_location is set " do
+      context "and :stored_location is set" do
         before do
-          Kraut::Session.any_instance.expects(:valid?).returns(true)
+          @user.expects(:valid?).returns(true)
           session[:stored_location] = "/url/we/want"
           post :create
         end
 
         it "should store the new session" do
-          session[:user].should be_a(Kraut::Session)
+          controller.user.should == @user
         end
 
         it "should redirect to :stored_location" do
@@ -60,27 +66,40 @@ describe Kraut::SessionsController do
         end
 
         it "should delete the :stored_location parameter" do
-          session[:stored_location].should be_nil 
+          session[:stored_location].should be_nil
         end
       end
     end
 
     context "with invalid credentials" do
       before do
-        Kraut::Session.any_instance.expects(:valid?).returns(false)
+        @user.expects(:valid?).returns(false)
+        session[:stored_location] = "/url/we/want"
         post :create
+      end
+
+      it "should not store the new session" do
+        controller.user.should be_nil
       end
 
       it "should render the :new action" do
         response.should render_template(:new)
       end
+
+      it "should not delete the :stored_location parameter" do
+        session[:stored_location].should_not be_nil
+      end
     end
   end
 
   describe "DELETE :destroy" do
-    it "should redirect to root" do
+    it "should logout, reset the session and redirect to configured entry_url" do
+      controller.switch_user(Kraut::Session.new)
+      Kraut::Rails::Engine.config.entry_url = "/bla"
       delete :destroy
-      response.should redirect_to("/")
+      controller.logged_in?.should == false
+      session.should == {}
+      response.should redirect_to("/bla")
     end
   end
 
