@@ -6,9 +6,7 @@ Interface for the [Atlassian Crowd](http://www.atlassian.com/software/crowd/) SO
 Installation
 ------------
 
-```ruby
-gem install kraut -s http://gems.blau.de
-```
+    gem install kraut -s http://gems.blau.de
 
 Crowd endpoint
 --------------
