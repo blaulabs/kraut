@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = s.name
 
   s.add_dependency "savon", ">= 0.8.2"
+  s.add_dependency "nori", "~> 0.2.4"
 
   s.add_development_dependency "ci_reporter", "~> 1.6.4"
   s.add_development_dependency "rspec", "~> 2.5.0"
