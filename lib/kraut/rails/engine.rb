@@ -15,6 +15,13 @@ module Kraut
         end
       end
 
+      def self.resolve_authorization_aliases(authorizations, aliases)
+        authorizations.inject({}) do |resolved, (action, groups)|
+          resolved[action] = groups.map { |group| aliases[group] }
+          resolved
+        end
+      end
+
     end
 
   end
