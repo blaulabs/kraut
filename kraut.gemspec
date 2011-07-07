@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.add_dependency "savon", ">= 0.8.2"
   s.add_dependency "nori", "~> 0.2.4"
 
-  s.add_development_dependency "ci_reporter", "~> 1.6.4"
+  s.add_development_dependency "ci_reporter", "~> 1.6.5"
   s.add_development_dependency "rspec", "~> 2.5.0"
   s.add_development_dependency "autotest", "~> 4.4.2"
   s.add_development_dependency "mocha", "~> 0.9.9"
