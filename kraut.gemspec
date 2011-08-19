@@ -28,6 +28,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails", "~> 2.5.0"
   s.add_development_dependency "haml", "~> 3.0"
 
+  # ZenTest 4.6 requires RubyGems version ~> 1.8 [dh, 2011-08-19]
+  s.add_development_dependency "ZenTest", "4.5.0"
+
   s.files = `git ls-files`.split("\n")
   s.require_path = "lib"
 end
