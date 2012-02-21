@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 lib = File.expand_path("../lib", __FILE__)
 $:.unshift lib unless $:.include? lib
 
@@ -13,8 +14,9 @@ Gem::Specification.new do |s|
   s.description = "Interface for the Atlassian Crowd SOAP API"
 
   s.rubyforge_project = s.name
-
-  s.add_dependency "savon", ">= 0.8.2"
+ 
+  #savon 0.9.8 ships with Savon::Model, which does not support handle_response method used in savon initializer [mw-21.02.12]
+  s.add_dependency "savon", "<= 0.9.7"
 
   s.add_development_dependency "ci_reporter", "~> 1.6.5"
   s.add_development_dependency "rspec", "~> 2.5.0"
