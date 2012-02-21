@@ -1,5 +1,6 @@
+# -*- encoding : utf-8 -*-
 module Kraut
 
-  VERSION = "0.5.5"
+  VERSION = "0.5.6"
 
 end
