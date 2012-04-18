@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.rubyforge_project = s.name
  
   #savon 0.9.8 ships with Savon::Model, which does not support handle_response method used in savon initializer [mw-21.02.12]
-  s.add_dependency "savon", "<= 0.9.7"
+  #<= 0.9.7 is broken due to invalid dependencies [aj-18.04.12]
+  s.add_dependency "savon", "= 0.9.7"
 
   s.add_development_dependency "ci_reporter", "~> 1.6.5"
   s.add_development_dependency "rspec", "~> 2.5.0"
