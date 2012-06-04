@@ -1,3 +1,4 @@
 # -*- encoding : utf-8 -*-
-source "http://gemcache.hh.blau.de"
+source :rubygems
+
 gemspec
