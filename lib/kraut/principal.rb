@@ -17,7 +17,7 @@ module Kraut
         "aut:credential" => { "aut:credential" => password }, "aut:name" => name
       }
       
-      new :name => name, :password => password, :token => response[:out].to_s
+      new :name => name.strip, :password => password, :token => response[:out].to_s
     end
     
     def self.find_by_token(token)

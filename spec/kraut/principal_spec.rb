@@ -111,6 +111,17 @@ describe Kraut::Principal do
           should raise_error(Kraut::ApplicationAccessDenied, /User does not have access to application/)
       end
     end
+
+    context "with a strippable username" do
+      before { savon.expects(:authenticate_principal).returns(:success) }
+
+      it "should return a principal with the stripped username" do
+        principal = Kraut::Principal.authenticate " test ", "password"
+        principal.should be_a(Kraut::Principal)
+        principal.name.should == "test"
+      end
+
+    end
   end
 
   describe ".find_by_token" do
