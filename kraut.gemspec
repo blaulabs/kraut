@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/blaulabs/#{s.name}"
   s.summary = "Crowd Interface"
   s.description = "Interface for the Atlassian Crowd SOAP API"
+  s.license     = "MIT"
 
   s.rubyforge_project = s.name
  
